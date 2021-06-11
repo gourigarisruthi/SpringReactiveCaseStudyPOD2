@@ -10,7 +10,7 @@ public interface AccountService {
 //	public Mono<Account> getEmployee(Integer empId);
 //	public Mono<Boolean> updateEmployee(Account employee);
 //	public Mono<Boolean> deleteEmployee(Integer empId);
-	public Mono<LoanAccount> applyLoan(LoanAccount employee);
+	public Mono<LoanAccount> applyLoan(LoanAccount loanAccount);
 
 	public Mono<LoanAccount> getLoanAccount(Integer id);
 }

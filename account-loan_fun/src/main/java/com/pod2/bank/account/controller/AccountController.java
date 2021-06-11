@@ -49,10 +49,10 @@ public class AccountController {
 	public Mono<ResponseEntity<ResponseMessage>> applyLoan(@RequestBody LoanAccount loanAccount)
 			throws URISyntaxException {
 		//WebClient webclient = WebClient.create("http://localhost:8080");
-		Mono<LoanAccount> acc = accountService.applyLoan(loanAccount);
+		//Mono<LoanAccount> acc = accountService.applyLoan(loanAccount);
 
 		StringBuilder locationStr = new StringBuilder();
-		acc.subscribe(a -> locationStr.append("http://localhost:8081/account/").append(8));
+		//acc.subscribe(a -> locationStr.append("http://localhost:8081/account/").append(8));
 
 		// Getting current resource path
 		URI location = new URI(locationStr.toString());

@@ -5,6 +5,7 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
+import static org.springframework.web.reactive.function.BodyExtractors.toMono;
 
 import java.net.URISyntaxException;
 
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.BodyExtractors;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
@@ -52,7 +52,7 @@ public class AccountRoute {
 	}
 //
 	@Bean
-	RouterFunction<ServerResponse> applyLoan(LoanAccount loanAccount)
+	RouterFunction<ServerResponse> applyLoan()
 			throws URISyntaxException {
 		//WebClient webclient = WebClient.create("http://localhost:8080");
 //		Mono<LoanAccount> acc = accountService.applyLoan(loanAccount);
@@ -64,10 +64,10 @@ public class AccountRoute {
 //		URI location = new URI(locationStr.toString());
 //		System.out.println(location.toString());
 
-		return route(POST("/account/loan"), accountService::applyLoan);
-//				  req -> req.body(BodyExtractors.toMono(LoanAccount.class))
-//			      .doOnNext(accountService::applyLoan)      
-//			      .then(ok().bodyValue("Loan Approved")));
+		return route(POST("/account/loan"), 
+				 req ->  ok().body(
+						 req.bodyToMono(LoanAccount.class).flatMap(obj ->
+						 accountService.applyLoan(obj)),LoanAccount.class));
 	}
 //
 //	@PutMapping("/{id}")

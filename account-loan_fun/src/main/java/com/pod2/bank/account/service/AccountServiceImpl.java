@@ -1,15 +1,12 @@
 package com.pod2.bank.account.service;
 
 
-import java.sql.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pod2.bank.account.model.LoanAccount;
 import com.pod2.bank.account.repository.AccountRepository;
 
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -20,11 +17,7 @@ public class AccountServiceImpl implements AccountService {
 
 	@Override
 	public Mono<LoanAccount> applyLoan(LoanAccount loanAccount) {
-		System.out.println("rewret");
-		//loanAccount.setOpenDate(new Date(124361538611));
-		// TODO Auto-generated method stub
-		Mono<LoanAccount> mono = accountRepo.save(loanAccount);
-		return mono;
+		return accountRepo.save(loanAccount);
 	}
 
 	@Override
