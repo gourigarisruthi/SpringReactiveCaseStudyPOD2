@@ -52,7 +52,7 @@ public class AccountController {
 		Mono<LoanAccount> acc = accountService.applyLoan(loanAccount);
 
 		StringBuilder locationStr = new StringBuilder();
-		acc.subscribe(a -> locationStr.append("http://localhost:8081/account/").append(8));
+		acc.subscribe(a -> locationStr.append("http://localhost:8081/account/loan"));
 
 		// Getting current resource path
 		URI location = new URI(locationStr.toString());

@@ -10,7 +10,7 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.pod.account</groupId>
-	<artifactId>spring-reactive-acconut</artifactId>
+	<artifactId>spring-reactive-account-func</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>Account Application</name>
 	<properties>
