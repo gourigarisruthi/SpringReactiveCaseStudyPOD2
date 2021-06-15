@@ -15,11 +15,20 @@ spring:
             - name: CircuitBreaker
               args:
                 name: ACCOUNT-SERVICE
-                fallbackuri: forward:/userServiceFallBack
+                fallbackuri: forward:/accountServiceFallBack
+        - id: ACCOUNT-SERVICE-FUNC
+          uri: lb://ACCOUNT-SERVICE-FUNC
+          predicates:
+            - Path=/account_func/**
+          filters:
+            - name: CircuitBreaker
+              args:
+                name: ACCOUNT-SERVICE-FUNC
+                fallbackuri: forward:/accountServiceFallBack
         - id: USER-SERVICE
           uri: lb://USER-SERVICE
           predicates:
-            - Path=/users/**
+            - Path=/bank/**
           filters:
             - name: CircuitBreaker
               args:

@@ -1,0 +1,37 @@
+Postgres
+CREATE TABLE bank.user ( userName serial primary key,     password text,     name text,    
+                        address text,     state text,     country text,    
+                        emailAddress text,     pan text,     contactNo text,    
+                        dob text,     accountType text )
+                        
+                        
+ {	
+	"password" : "test",
+	"name" : "selva",
+	"address" : "chennai",
+	"state" : "TN",
+	"country" : "india",
+	"emailaddress" : "test@123.com",
+	"pan" : "123",
+	"contactno" : "123",
+	"dob" : "123",
+	"accounttype" : "saving"
+}         
+
+Mysql              
+                        
+     CREATE TABLE `user` (
+  `userName` int NOT NULL AUTO_INCREMENT,
+  `password` varchar(100) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `address` varchar(100) NOT NULL,
+  `state` varchar(100) NOT NULL,
+  `country` varchar(100) NOT NULL,
+  `emailAddress` varchar(100) NOT NULL,
+  `pan` varchar(20) NOT NULL,
+  `contactNo` varchar(20) NOT NULL,
+  `dob` varchar(20) NOT NULL,
+  `accountType` varchar(20) NOT NULL,
+  PRIMARY KEY (`userName`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                

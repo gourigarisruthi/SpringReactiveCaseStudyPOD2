@@ -5,28 +5,18 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RequestPredicates.POST;
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 import static org.springframework.web.reactive.function.server.ServerResponse.ok;
-import static org.springframework.web.reactive.function.BodyExtractors.toMono;
 
 import java.net.URISyntaxException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.server.RouterFunction;
 import org.springframework.web.reactive.function.server.ServerResponse;
 
+import com.pod2.bank.account.dto.LoanAccountRequest;
 import com.pod2.bank.account.model.LoanAccount;
-import com.pod2.bank.account.model.ResponseMessage;
 import com.pod2.bank.account.service.AccountService;
-
-import reactor.core.publisher.Mono;
 
 @Component
 public class AccountRoute {
@@ -66,7 +56,7 @@ public class AccountRoute {
 
 		return route(POST("/account_func/loan"), 
 				 req ->  ok().body(
-						 req.bodyToMono(LoanAccount.class).flatMap(obj ->
+						 req.bodyToMono(LoanAccountRequest.class).flatMap(obj ->
 						 accountService.applyLoan(obj)),LoanAccount.class));
 	}
 //

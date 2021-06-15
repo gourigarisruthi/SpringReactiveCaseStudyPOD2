@@ -13,13 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.reactive.function.client.WebClient;
 
+import com.pod2.bank.account.dto.LoanAccountRequest;
 import com.pod2.bank.account.model.LoanAccount;
 import com.pod2.bank.account.model.ResponseMessage;
 import com.pod2.bank.account.service.AccountService;
 
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @RestController
@@ -46,19 +45,23 @@ public class AccountController {
 	}
 //
 	@PostMapping("/loan")
-	public Mono<ResponseEntity<ResponseMessage>> applyLoan(@RequestBody LoanAccount loanAccount)
+	public Mono<ResponseEntity<ResponseMessage>> applyLoan(@RequestBody LoanAccountRequest loanAccount)
 			throws URISyntaxException {
 		//WebClient webclient = WebClient.create("http://localhost:8080");
 		Mono<LoanAccount> acc = accountService.applyLoan(loanAccount);
+ 	   StringBuilder locationStr = new StringBuilder();
+       if(acc != null) {
+   		acc.subscribe(a -> locationStr.append("http://localhost:8081/account/loan"));
 
-		StringBuilder locationStr = new StringBuilder();
-		acc.subscribe(a -> locationStr.append("http://localhost:8081/account/loan"));
+   		// Getting current resource path
+   		URI location = new URI(locationStr.toString());
+   		System.out.println(location.toString());
 
-		// Getting current resource path
-		URI location = new URI(locationStr.toString());
-		System.out.println(location.toString());
-
-		return Mono.just(ResponseEntity.created(location).body(this.getResponse(loanAccount.getAccountNo(), "loan approved")));
+   		return Mono.just(ResponseEntity.created(location).body(this.getResponse(loanAccount.getAccountNo(), "Loan approved"))); 
+       } else  {
+    	   return Mono.just(ResponseEntity.created(null).body(this.getResponse(loanAccount.getAccountNo(), "Loan rejected. Please register before appying to the loan")));
+       }
+		
 	}
 //
 //	@PutMapping("/{id}")
